@@ -13,6 +13,5 @@ class ProductHistory extends Model
         'product_id',
         'name',
         'quantity',
-        'created_at'
     ];
 }
