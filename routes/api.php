@@ -18,4 +18,4 @@ Route::apiResource('api/product', ProductController::class);
 
 Route::get('api/product/history', "ProductHistoryController@index");
 
-Route::get('api/product/kulk', "ProductController@bulkUpdateAndCreate");
+Route::post('api/product/bulk', "ProductController@bulkUpdateAndCreate");
