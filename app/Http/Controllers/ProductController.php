@@ -29,6 +29,8 @@ class ProductController extends Controller
         ]);
 
         $this->service->storeProduct($request->all());
+
+        return response(null, 200);
     }
 
     public function update(Request $request)
@@ -41,14 +43,18 @@ class ProductController extends Controller
         ]);
 
         $this->service->updateProduct($request->all());
+
+        return response(null, 200);
     }
 
     public function destroy($id)
     {
         Product::find($id)->delete();
+
+        return response(null, 200);
     }
 
-    public function bulkUpdateAndCreate(Request $request) : void
+    public function bulkUpdateAndCreate(Request $request)
     {
         $request()->validate([
             '*.id' => 'required',
@@ -58,6 +64,8 @@ class ProductController extends Controller
         ]);
         
         $this->service->bulkUpdateAndCreate($request->all());
+
+        return response(null, 200);
     }
 
 }
