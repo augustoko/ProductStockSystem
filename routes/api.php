@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProductHistoryController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,8 +16,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::apiResource('api/product', ProductController::class);
+Route::get('products/histories', ProductHistoryController::class."@index");
 
-Route::get('api/product/history', "ProductHistoryController@index");
+Route::apiResource('products', ProductController::class);
 
-Route::post('api/product/bulk', "ProductController@bulkUpdateAndCreate");
+Route::post('products/bulk', ProductController::class."@bulkUpdateAndCreate");
