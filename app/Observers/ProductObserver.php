@@ -3,7 +3,6 @@
 namespace App\Observers;
 
 use App\Models\Product;
-use App\Models\ProductHistory;
 use App\Services\ProductHistoryService;
 
 class ProductObserver
@@ -12,18 +11,19 @@ class ProductObserver
 
     public function __construct()
     {
-        $this->services = new ProductHistory();
+        $this->services = new ProductHistoryService();
     }
 
     public function created(Product $product)
     {
         $this->services->storeProductHistory($product);
-
     }
 
     public function updated(Product $product)
     {
-        $this->services->storeProductHistory($product);
+        if($product->isDirty('quantity')){
+            $this->services->storeProductHistory($product);        
+        }
     }
 
 }

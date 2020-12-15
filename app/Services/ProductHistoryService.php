@@ -13,8 +13,7 @@ class ProductHistoryService
         $productHistory->product_id = $product->id;
         $productHistory->name = $product->name;
         $productHistory->quantity = $product->quantity;
-        $productHistory->update_time = $product->created_at;
 
-        $product->save();  
+        $productHistory->save();  
     }
 }
