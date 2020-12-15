@@ -7,7 +7,6 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
-import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import Button from '@material-ui/core/Button';
 import Input from '@material-ui/core/Input';
@@ -60,6 +59,7 @@ function ProductList() {
       console.log(data)
       if(data.status === 200){
         delete product.new
+        delete product.unsaved
         rows[index].id = data.data.id
         setRows([...rows])
 
@@ -73,6 +73,9 @@ function ProductList() {
     axios.put(`/api/products/${product.id}`, product).then((data) => {
       console.log(data)
       if(data.status === 200){
+        delete product.unsaved
+        setRows([...rows])
+
         responses.push(data)
         setResponses([...responses])
       }
@@ -106,7 +109,7 @@ function ProductList() {
   }
   
   function onChange(event, index, name) {
-    rows[index]
+    rows[index].unsaved = true
     rows[index][name] = event.target.value
     setRows([...rows]);
   }
@@ -119,7 +122,7 @@ function ProductList() {
     rows.push(createData('', '', 0, 0))
     setRows([...rows])
   }
-  
+
   const RenderTable = () => {
     return rows.map((row, index) => {
       return (
@@ -129,9 +132,12 @@ function ProductList() {
             if(column.buttons){
               return(
                 <TableCell key={column.id} align={column.align}>
-                  <IconButton className={classes.buttonCreate} onClick={() => saveProduct(index)}>
-                    <SaveIcon />
-                  </IconButton>
+                  {
+                    row.unsaved ? 
+                    <IconButton className={classes.buttonCreate} onClick={() => saveProduct(index)}>
+                      <SaveIcon />
+                    </IconButton> : null
+                  }
                   <IconButton className={classes.buttonCreate} onClick={() => deleteProduct(index)}>
                     <DeleteIcon />
                   </IconButton>
@@ -195,18 +201,3 @@ function ProductList() {
 }
 
 export default ProductList;
-
-
-
-/* 
-
-dividir duas tabelas em lugares diferentes
-
-table products
-
-verify price to have 0.00
-save all/create show errors 
-icones aparecem quando feita uma mudança
-
-*/
-
