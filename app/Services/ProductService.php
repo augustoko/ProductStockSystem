@@ -17,7 +17,7 @@ class ProductService
         }
     }
 
-    public function storeProduct(array $data) : string
+    public function storeProduct(array $data) : void
     {
         $product = new Product();
         $product->name = $data['name'];
@@ -25,8 +25,6 @@ class ProductService
         $product->quantity = $data['quantity'];
 
         $product->save();
-
-        return response($product, 200);
     }
 
     public function updateProduct(array $data) : void
