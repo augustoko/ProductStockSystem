@@ -15,6 +15,9 @@ class CreateProductHistoriesTable extends Migration
     {
         Schema::create('product_histories', function (Blueprint $table) {
             $table->id();
+            $table->string('product_id');
+            $table->string('name');
+            $table->integer('quantity');
             $table->timestamps();
         });
     }

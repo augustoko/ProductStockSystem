@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class ProductHistory extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'product_id',
+        'name',
+        'quantity',
+        'created_at'
+    ];
 }
