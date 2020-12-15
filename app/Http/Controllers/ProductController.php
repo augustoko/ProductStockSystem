@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ProductBulkRequest;
+use App\Http\Requests\ProductRequest;
 use App\Services\ProductService;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -20,52 +22,27 @@ class ProductController extends Controller
         return Product::all();
     }
 
-    public function store(Request $request)
+    public function store(ProductRequest $request)
     {
-        $request()->validate([
-            'name' => 'alpha_num|required',
-            'price' => 'required|decimal|size:12',
-            'quantity' => 'required|integer|size:10'
-        ]);
+        $id = $this->service->storeProduct($request->all());
 
-        $this->service->storeProduct($request->all());
-
-        return response(null, 200);
+        return [
+            'id' => $id
+        ];
     }
 
-    public function update(Request $request)
+    public function update(ProductRequest $request)
     {
-        $request()->validate([
-            'id' => 'required',
-            'name' => 'alpha_num|required',
-            'price' => 'decimal|size:12|required',
-            'quantity' => 'integer|size:10|required'
-        ]);
-
         $this->service->updateProduct($request->all());
-
-        return response(null, 200);
     }
 
-    public function destroy($id)
+    public function destroy(Product $product)
     {
-        Product::find($id)->delete();
-
-        return response(null, 200);
+        $product->delete();
     }
 
-    public function bulkUpdateAndCreate(Request $request)
+    public function bulkUpdateAndCreate(ProductBulkRequest $request)
     {
-        $request()->validate([
-            '*.id' => 'required',
-            '*.name' => 'alpha_num|required',
-            '*.price' => 'decimal|size:12|required',
-            '*.quantity' => 'integer|size:10|required'
-        ]);
-        
         $this->service->bulkUpdateAndCreate($request->all());
-
-        return response(null, 200);
     }
-
 }
