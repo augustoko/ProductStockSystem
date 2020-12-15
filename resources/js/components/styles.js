@@ -57,6 +57,23 @@ const useStyles = makeStyles((theme) => ({
 		padding: theme.spacing(0, 1),
 		...theme.mixins.toolbar,
 	},
+	tableContainer: {
+		display: 'flex',
+		flexDirection: 'column'
+	},
+	content: {
+		flexGrow: 1,
+		padding: theme.spacing(3),
+	},
+	container: {
+		flex: 1
+	},
+	buttonGroup: {
+		padding: theme.spacing(3),
+		display: 'flex',
+		flexDirection: "row",
+		justifyContent: "space-around"
+	}
 }));
 
 
