@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Product;
+use Illuminate\Support\Str;
 
 class ProductService
 {
@@ -17,7 +18,7 @@ class ProductService
         }
     }
 
-    public function storeProduct(array $data) : void
+    public function storeProduct(array $data) : string
     {
         $product = new Product();
         $product->name = $data['name'];
@@ -25,6 +26,8 @@ class ProductService
         $product->quantity = $data['quantity'];
 
         $product->save();
+
+        return $product->id;
     }
 
     public function updateProduct(array $data) : void
