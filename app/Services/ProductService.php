@@ -14,7 +14,7 @@ class ProductService
                 $this->storeProduct($item);
                 continue;
             }
-            $this->updateProduct($item->id ,$item);
+            $this->updateProduct($item['id'] ,$item);
         }
     }
 
