@@ -92514,7 +92514,6 @@ function ProductList(tableProps) {
 
   function getProducts() {
     axios.get('api/products/histories').then(function (data) {
-      console.log(data);
       setRows(data.data);
     });
   }
@@ -92791,11 +92790,6 @@ function ProductList() {
       rows = _React$useState2[0],
       setRows = _React$useState2[1];
 
-  var _React$useState3 = react__WEBPACK_IMPORTED_MODULE_0___default.a.useState([]),
-      _React$useState4 = _slicedToArray(_React$useState3, 2),
-      responses = _React$useState4[0],
-      setResponses = _React$useState4[1];
-
   var columns = [{
     id: 'id',
     label: 'id',
@@ -92827,8 +92821,6 @@ function ProductList() {
 
   function getProducts() {
     axios.get('/api/products').then(function (data) {
-      console.log(data);
-
       if (data.status === 200) {
         setRows(data.data);
       }
@@ -92847,56 +92839,38 @@ function ProductList() {
 
   function createProduct(product, index) {
     axios.post('/api/products', product).then(function (data) {
-      console.log(data);
-
       if (data.status === 200) {
         delete product["new"];
         delete product.unsaved;
         rows[index].id = data.data.id;
         setRows(_toConsumableArray(rows));
-        responses.push(data);
-        setResponses(_toConsumableArray(responses));
       }
     });
   }
 
   function updateProduct(product) {
     axios.put("/api/products/".concat(product.id), product).then(function (data) {
-      console.log(data);
-
       if (data.status === 200) {
         delete product.unsaved;
         setRows(_toConsumableArray(rows));
-        responses.push(data);
-        setResponses(_toConsumableArray(responses));
       }
     });
   }
 
   function deleteProduct(index) {
-    var product = rows[index];
-    axios["delete"]("/api/products/".concat(product.id)).then(function (data) {
-      console.log(data);
-
+    axios["delete"]("/api/products/".concat(rows[index].id)).then(function (data) {
       if (data.status === 200) {
-        rows.splice(index, 1);
-        responses.push(data);
-        setRows(_toConsumableArray(rows));
-        setResponses(_toConsumableArray(responses));
+        getProducts();
       }
     });
   }
 
   function bulkUpdate(all) {
     axios.post('/api/products/bulk', all).then(function (data) {
-      console.log(data);
-
       if (data.status === 200) {
-        responses.push(data);
-        setResponses(_toConsumableArray(responses));
+        getProducts();
       }
     });
-    getProducts();
   }
 
   function _onChange(event, index, name) {
@@ -92950,7 +92924,6 @@ function ProductList() {
             key: column.id,
             align: column.align
           }, column.id === "id" ? value : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Input__WEBPACK_IMPORTED_MODULE_9__["default"], {
-            className: classes.margin,
             onChange: function onChange(event) {
               return _onChange(event, index, column.id);
             },

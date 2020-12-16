@@ -18,7 +18,6 @@ import useStyles from './styles'
 function ProductList() {
   const classes = useStyles();
   const [rows, setRows] = React.useState([]);
-  const [responses, setResponses] = React.useState([]);
 
   const columns = [
     { id: 'id', label: 'id', minWidth: 170 },
@@ -34,7 +33,6 @@ function ProductList() {
 
   function getProducts() {
     axios.get('/api/products').then((data) => {
-      console.log(data)
       if(data.status === 200){
         setRows(data.data)
       }
@@ -53,56 +51,38 @@ function ProductList() {
   function createProduct(product, index) {
     
     axios.post('/api/products', product).then((data) => {
-      console.log(data)
       if(data.status === 200){
         delete product.new
         delete product.unsaved
         rows[index].id = data.data.id
         setRows([...rows])
-
-        responses.push(data)
-        setResponses([...responses])
       }
     });
   }
 
   function updateProduct(product) {
     axios.put(`/api/products/${product.id}`, product).then((data) => {
-      console.log(data)
       if(data.status === 200){
         delete product.unsaved
         setRows([...rows])
-
-        responses.push(data)
-        setResponses([...responses])
       }
     });
   }
 
   function deleteProduct(index) {
-    let product = rows[index]
-    axios.delete(`/api/products/${product.id}`).then((data) => {
-      console.log(data)
+    axios.delete(`/api/products/${rows[index].id}`).then((data) => {
       if(data.status === 200){
-        rows.splice(index,1)
-        responses.push(data)
-
-        setRows([...rows])
-        setResponses([...responses])
+        getProducts()
       }
     });
   }
 
   function bulkUpdate(all) {
     axios.post('/api/products/bulk', all).then((data) => {
-      console.log(data)
       if(data.status === 200){
-        responses.push(data)
-        setResponses([...responses])
+        getProducts()
       }
     });
-
-    getProducts()
   }
   
   function onChange(event, index, name) {
@@ -146,7 +126,6 @@ function ProductList() {
                   {
                     column.id === "id" ? value : (
                       <Input
-                      className={classes.margin}
                       onChange={event => onChange(event, index, column.id)}
                       defaultValue={column.format && typeof value === 'number' ? column.format(value) : value}
                       inputProps={{ 'aria-label': 'naked' }}

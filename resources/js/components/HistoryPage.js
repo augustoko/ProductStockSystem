@@ -31,7 +31,6 @@ function ProductList(tableProps) {
 
   function getProducts() {
     axios.get('api/products/histories').then((data) => {
-        console.log(data)
         setRows(data.data)
     });
   }

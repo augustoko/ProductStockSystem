@@ -11,8 +11,8 @@ class ProductBulkRequest extends FormRequest
         return [
             '*.id' => 'nullable',
             '*.name' => 'string|required',
-            '*.price' => 'numeric|required|min:0',
-            '*.quantity' => 'integer|required|min:0'
+            '*.price' => 'numeric|required|min:0,max:999999999',
+            '*.quantity' => 'integer|required|min:0,max:999999999'
         ];
     }
 }
