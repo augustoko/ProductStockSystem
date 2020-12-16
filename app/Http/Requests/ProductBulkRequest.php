@@ -10,7 +10,7 @@ class ProductBulkRequest extends FormRequest
     {
         return [
             '*.id' => 'nullable',
-            '*.name' => 'alpha_num|required',
+            '*.name' => 'string|required',
             '*.price' => 'numeric|required|min:0',
             '*.quantity' => 'integer|required|min:0'
         ];

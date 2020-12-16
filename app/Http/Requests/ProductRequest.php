@@ -10,7 +10,7 @@ class ProductRequest extends FormRequest
     {
         if(empty(request('id'))){
             return [
-                'name' => 'alpha_num|required',
+                'name' => 'string|required',
                 'price' => 'numeric|required|min:0',
                 'quantity' => 'integer|required|min:0'
             ];
@@ -18,7 +18,7 @@ class ProductRequest extends FormRequest
 
         return [
             'id' => 'required',
-            'name' => 'alpha_num|required',
+            'name' => 'string|required',
             'price' => 'numeric|required|min:0',
             'quantity' => 'integer|required|min:0'
         ];
