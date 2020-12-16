@@ -49,8 +49,9 @@ function ProductList() {
     let product = rows[index]
     if(product.new){
       createProduct(product, index)
+    }else{
+      updateProduct(product)
     }
-    updateProduct(product)
   }
 
   function createProduct(product, index) {
