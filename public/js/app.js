@@ -92498,6 +92498,10 @@ function ProductList(tableProps) {
     label: 'id',
     minWidth: 170
   }, {
+    id: 'product_id',
+    label: 'product id',
+    minWidth: 170
+  }, {
     id: 'name',
     label: 'Name',
     minWidth: 170

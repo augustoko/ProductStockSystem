@@ -23,6 +23,7 @@ function ProductList(tableProps) {
 
   const columns = [
     { id: 'id', label: 'id', minWidth: 170 },
+    { id: 'product_id', label: 'product id', minWidth: 170 },
     { id: 'name', label: 'Name', minWidth: 170 },
     { id: 'quantity', label: 'quantity', minWidth: 170 },
     { id: 'created_at', label: 'update date', minWidth: 170},
