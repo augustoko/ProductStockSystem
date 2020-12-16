@@ -14,7 +14,7 @@ class ProductService
                 $this->storeProduct($item);
                 continue;
             }
-            $this->updateProduct($item);
+            $this->updateProduct($item->id ,$item);
         }
     }
 
@@ -30,9 +30,9 @@ class ProductService
         return $product->id;
     }
 
-    public function updateProduct(array $data) : void
+    public function updateProduct(int $id ,array $data) : void
     {
-        $product = Product::find($data['id']);
+        $product = Product::find($id);
         $product->name = $data['name'];
         $product->price = $data['price'];
         $product->quantity = $data['quantity'];
